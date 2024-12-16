@@ -1,6 +1,6 @@
 import easyocr
-from image_opener import ImageOpener
-from text_postprocessor import TextPostprocessor
+from ocr.image_opener import ImageOpener
+from ocr.text_postprocessor import TextPostprocessor
 from typing import List, Tuple
 import numpy as np
 
@@ -85,15 +85,15 @@ class TextRecognizer:
         return strings
 
 
-rec = TextRecognizer(
-    "ocr/sample.png",
-    low_threshold=150,
-    high_threshold=255,
-    clip_limit=20.0,
-    tile_grid_size=(8, 8)
-)
-strings = rec.recognize_text(langs=['ru', 'en'])
+# rec = TextRecognizer(
+#     "ocr/sample.png",
+#     low_threshold=150,
+#     high_threshold=255,
+#     clip_limit=20.0,
+#     tile_grid_size=(8, 8)
+# )
+# strings = rec.recognize_text(langs=['ru', 'en'])
 
-for string in strings:
-    print(string[1])
+# for string in strings:
+#     print(string[1])
 
