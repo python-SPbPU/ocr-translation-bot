@@ -5,7 +5,7 @@
 Пример использования:
 
 ```python
-from recognition import TextRecognizer
+from ocr.recognition import TextRecognizer
 
 rec = TextRecognizer(
     "sample.png",
