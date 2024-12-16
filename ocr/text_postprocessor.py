@@ -3,6 +3,23 @@ import re
 
 
 class TextPostprocessor:
+    """
+    Класс для пост-обработки распознанного текста.
+    
+    Выполняет:
+    - Исправление типичных ошибок распознавания
+    - Нормализацию пунктуации
+    - Очистку текста от артефактов
+
+    Attributes:
+        replacements (Dict[str, str]): Словарь простых замен символов
+        patterns (List[Tuple[Pattern, str]]): Список паттернов для сложных замен
+
+    Example:
+        >>> processor = TextPostprocessor()
+        >>> text = processor.process_text("Hello_world__")
+        >>> print(text)  # "Hello.world."
+    """
     def __init__(self) -> None:
         # Словарь замен для типичных ошибок распознавания
         self.replacements: Dict[str, str] = {
