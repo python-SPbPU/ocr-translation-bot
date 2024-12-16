@@ -1,12 +1,14 @@
 import easyocr
 from image_opener import ImageOpener
+from typing import List, Tuple
+import numpy as np
 
 
-def is_on_same_line(y1, y2, threshold=10):
+def is_on_same_line(y1: float, y2: float, threshold: int = 10) -> bool:
     return abs(y1 - y2) < threshold
 
 
-def recognize_text(image):
+def recognize_text(image: np.ndarray) -> List[Tuple[float, str]]:
     reader = easyocr.Reader(['en'])
     results = reader.readtext(image)
     strings = []
