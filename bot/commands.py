@@ -3,6 +3,7 @@ from aiogram.types import Message
 from aiogram.filters import Command
 from dotenv import load_dotenv
 import aiohttp
+from ocr.recognition import TextRecognizer
 import os
 
 router = Router()
@@ -39,6 +40,18 @@ async def handle_image(message: Message):
                 with open(file_name, "wb") as f:
                     f.write(await response.read())
                 await message.reply("Файл успешно загружен. Начинаю распознавание текста...")
+                try:
+                    recognizer = TextRecognizer(file_name)
+                    results = recognizer.recognize_text(langs=['ru', 'en'])  # Указываем нужные языки
+
+                    if results:
+                        recognized_text = "\n".join([f"{text} (уверенность: {prob:.2%})" for _, text, prob in results])
+                        await message.reply(f"Распознанный текст:\n{recognized_text}")
+                    else:
+                        await message.reply("Не удалось распознать текст на изображении.")
+                except Exception as e:
+                    await message.reply(f"Произошла ошибка при распознавании: {e}")
+
             else:
                 await message.reply("Не удалось загрузить файл.")
 
