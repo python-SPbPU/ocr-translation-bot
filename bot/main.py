@@ -16,7 +16,7 @@ async def setup_bot_commands(bot: Bot):
     await bot.set_my_commands(commands)
 
 async def main():
-    bot = Bot(os.getenv('TOKEN'), html=True)
+    bot = Bot(os.getenv('TOKEN'))
     dp = Dispatcher()
 
     dp.include_router(commands_router)

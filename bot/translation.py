@@ -7,7 +7,7 @@ def translate_text_google(text: str, source_lang: str, destination_lang: str) ->
     return translated.text
 
 
-# Пример использования
-text = "Hello, World!"
-translated_text = translate_text_google(text, "en", "ru")
-print(f"Перевод: {translated_text}")
+# # Пример использования
+# text = "Hello, World!"
+# translated_text = translate_text_google(text, "en", "ru")
+# print(f"Перевод: {translated_text}")

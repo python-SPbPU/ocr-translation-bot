@@ -67,9 +67,8 @@ async def handle_language_selection(callback_query: types.CallbackQuery):
         results = recognizer.recognize_text(langs=['ru', 'en'])
 
         if results:
-            recognized_text = "\n".join([text for _, text, _ in results])
-            # TODO: убрать сообщение о распознанном тексте
-            await callback_query.message.reply(f"Распознанный текст:\n{recognized_text}")
+            recognized_text = "\n".join([text if prob > 0.6 else "" for _, text, prob in results])
+            #await callback_query.message.reply(f"Распознанный текст:\n{recognized_text}")
         else:
             await callback_query.message.reply("Не удалось распознать текст на изображении.")
             return
@@ -77,12 +76,10 @@ async def handle_language_selection(callback_query: types.CallbackQuery):
         await callback_query.message.reply(f"Произошла ошибка при распознавании: {e}")
         return
     if callback_data == "translate_ru_en":
-        # TODO: вставить функцию перевода ru_en которая будет принимать recognized_text
-        await translated_text = translate_text_google(recognized_text, 'ru', 'en')
         await callback_query.message.reply("Вы выбрали перевод с русского на английский. Начинаю обработку...")
+        await callback_query.message.reply(translate_text_google(recognized_text, 'ru', 'en'))
     elif callback_data == "translate_en_ru":
-        # TODO: вставить функцию перевода en_ru которая будет принимать recognized_text
-        await translated_text = translate_text_google(recognized_text, 'en', 'ru')
         await callback_query.message.reply("Вы выбрали перевод с английского на русский. Начинаю обработку...")
+        await callback_query.message.reply(translate_text_google(recognized_text, 'en', 'ru'))
     else:
         await callback_query.message.reply("Неизвестный выбор. Пожалуйста, попробуйте снова.")
