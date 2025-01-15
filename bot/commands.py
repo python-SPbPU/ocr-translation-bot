@@ -6,6 +6,8 @@ import aiohttp
 from ocr.recognition import TextRecognizer
 from keyboard import language_keyboard
 import os
+from translation import translate_text_google
+
 
 router = Router()
 
@@ -54,6 +56,7 @@ async def handle_image(message: Message):
                 await message.reply("Не удалось загрузить файл.")
 
 
+
 # Обработчик для выбора языка перевода
 @router.callback_query()
 async def handle_language_selection(callback_query: types.CallbackQuery):
@@ -75,11 +78,11 @@ async def handle_language_selection(callback_query: types.CallbackQuery):
         return
     if callback_data == "translate_ru_en":
         # TODO: вставить функцию перевода ru_en которая будет принимать recognized_text
-        # await функция_переводчика(recognized_text, 'en')
+        await translated_text = translate_text_google(recognized_text, 'ru', 'en')
         await callback_query.message.reply("Вы выбрали перевод с русского на английский. Начинаю обработку...")
     elif callback_data == "translate_en_ru":
         # TODO: вставить функцию перевода en_ru которая будет принимать recognized_text
-        # await функция_переводчика(recognized_text, 'ru')
+        await translated_text = translate_text_google(recognized_text, 'en', 'ru')
         await callback_query.message.reply("Вы выбрали перевод с английского на русский. Начинаю обработку...")
     else:
         await callback_query.message.reply("Неизвестный выбор. Пожалуйста, попробуйте снова.")
